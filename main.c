@@ -11,14 +11,13 @@ const char *DOUZAINES_DICS[] =
 const char *SEC_DICS[] =
     {
         "", "", "milles ", "million ", "billion ", "trillion ", "quadrillion ", "quintillion ", "sextillion ", "septillion ", "octillion ", "nonillion ", "decillion "};
-
 char *saisirChaine();
 char *unites(char uni);
 char *centaines(char cen);
+int hasOnlyZeros(const char *str);
 char *douzaines(char dou, char uni);
 void convert(char **letter, char *number);
 void convertIntegerSection(char **letter, char *n);
-void troisChiffres(char **letter, char *number);
 void convertRealSection(char **letter, char *n);
 void add(char **destinationLetter, const char *sourceLetter);
 
@@ -41,15 +40,22 @@ void convert(char **letter, char *number)
     char *nE = NULL;
     char *token = strtok(number, ".");
     nE = strdup(token);
-    convertIntegerSection(letter, nE);
+    if (hasOnlyZeros(nE))
+        add(letter, "zero ");
+    else
+        convertIntegerSection(letter, nE);
     token = strtok(NULL, ".");
     if (token != NULL)
     {
         char *nR = strdup(token);
         add(letter, "vergule ");
-        convertRealSection(letter, nR);
+        if (hasOnlyZeros(nR))
+            add(letter, "zero ");
+        else
+            convertRealSection(letter, nR);
     }
 }
+
 void convertRealSection(char **letter, char *n)
 {
     while (*n == '0')
@@ -59,6 +65,7 @@ void convertRealSection(char **letter, char *n)
     }
     convertIntegerSection(letter, n);
 }
+
 void convertIntegerSection(char **letter, char *n)
 {
     int i = strlen(n) % 3;
@@ -73,20 +80,10 @@ void convertIntegerSection(char **letter, char *n)
     {
         char *buff = (char *)malloc(3 * sizeof(char));
         sprintf(buff, "%c%c%c", number[i], number[i + 1], number[i + 2]);
-        troisChiffres(letter, buff);
-        add(letter, SEC_DICS[j]);
-    }
-}
-
-void troisChiffres(char **letter, char *number)
-{
-    int n = (number[0] - '0') * 100 + (number[1] - '0') * 10 + (number[2] - '0');
-    if (!n)
-        add(letter, "zero ");
-    else
-    {
-        add(letter, centaines(number[0]));
-        add(letter, douzaines(number[1], number[2]));
+        add(letter, centaines(buff[0]));
+        add(letter, douzaines(buff[1], buff[2]));
+        if (strcmp(buff, "000"))
+            add(letter, SEC_DICS[j]);
     }
 }
 
@@ -138,12 +135,18 @@ char *unites(char uni)
 void add(char **destinationLetter, const char *sourceLetter)
 {
     if (*destinationLetter == NULL)
-    {
         *destinationLetter = strdup(sourceLetter);
-    }
     else
     {
         *destinationLetter = (char *)realloc(*destinationLetter, (strlen(*destinationLetter) + strlen(sourceLetter) + 1) * sizeof(char));
         strcat(*destinationLetter, sourceLetter);
     }
+}
+
+int hasOnlyZeros(const char *str)
+{
+    for (int i = 0; str[i] != '\0'; i++)
+        if (str[i] != '0')
+            return 0;
+    return 1;
 }
