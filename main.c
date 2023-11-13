@@ -10,7 +10,7 @@ const char *DOUZAINES_DICS[] =
         "", "", "vingt ", "trente ", "quarante ", "cinquante ", "soixante ", "soixante ", "quatre-vingts ", "quatre-vingts "};
 const char *SEC_DICS[] =
     {
-        "", "", "milles ", "million ", "billion ", "trillion ", "quadrillion ", "quintillion ", "sextillion ", "septillion ", "octillion ", "nonillion ", "decillion "};
+        "", "milles ", "million ", "billion ", "trillion ", "quadrillion ", "quintillion ", "sextillion ", "septillion ", "octillion ", "nonillion ", "decillion "};
 char *saisirChaine();
 char *unites(char uni);
 char *centaines(char cen);
@@ -76,7 +76,7 @@ void convertIntegerSection(char **letter, char *n)
         number[j] = '0';
     number[zerosNeeded] = '\0';
     add(&number, n);
-    for (int i = 0, j = strlen(number) / 3; i < strlen(number); i += 3, j--)
+    for (int i = 0, j = (strlen(number) / 3) - 1; i < strlen(number); i += 3, j--)
     {
         char *buff = (char *)malloc(3 * sizeof(char));
         sprintf(buff, "%c%c%c", number[i], number[i + 1], number[i + 2]);
