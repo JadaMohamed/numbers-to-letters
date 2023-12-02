@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/medja/OneDrive/Desktop/numbers_to_leters",
-      "program": "c:/Users/medja/OneDrive/Desktop/numbers_to_leters/build/Debug/outDebug",
+      "cwd": "c:/Users/medja/OneDrive/Desktop/cycle/c/c-projects/projects/numbers_to_leters",
+      "program": "c:/Users/medja/OneDrive/Desktop/cycle/c/c-projects/projects/numbers_to_leters/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

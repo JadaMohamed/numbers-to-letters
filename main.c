@@ -10,7 +10,7 @@ const char *DOUZAINES_DICS[] =
         "", "", "vingt ", "trente ", "quarante ", "cinquante ", "soixante ", "soixante ", "quatre-vingts ", "quatre-vingts "};
 const char *SEC_DICS[] =
     {
-        "", "milles ", "million ", "billion ", "trillion ", "quadrillion ", "quintillion ", "sextillion ", "septillion ", "octillion ", "nonillion ", "decillion "};
+        "", "milles ", "million ", "milliard ", "billion ", "billiard ", "trillion ", "trilliard ", "quatrillion ", "quatrilliard ", "quintillion ", "quintilliard ", "sextillion ", "sextilliard ", "Septillion ", "septilliard "};
 char *saisirChaine();
 char *unites(char uni);
 char *centaines(char cen);
@@ -48,7 +48,7 @@ void convert(char **letter, char *number)
     if (token != NULL)
     {
         char *nR = strdup(token);
-        add(letter, "vergule ");
+        add(letter, "virgule ");
         if (hasOnlyZeros(nR))
             add(letter, "zero ");
         else
